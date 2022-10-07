@@ -1,8 +1,19 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import {render} from "react-dom";
+// import { act } from "react-dom/test-utils";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import App from "./App";
+import {BrowserRouter} from "react-router-dom";
+
+let container = null;
+beforeEach(() => {
+    container = document.createElement("div");
+    document.body.appendChild(container);
+});
+
+test("renders", () => {
+    render(<BrowserRouter><App/></BrowserRouter>, container);
+    expect(container.firstChild.classList.contains('App')).toBe(true);
+    expect(container.getElementsByClassName("search-input")[0]).toBeInTheDocument();
+    expect(container.getElementsByClassName("btn")[0]).toBeInTheDocument();
 });
